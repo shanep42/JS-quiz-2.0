@@ -24,5 +24,14 @@
 }
 
 #answer-space {
-    list-style: none;
+    display:flex;
+    flex-direction: column;
+}
+
+#answer-space button {
+    padding: 10px;
+}
+
+.hidden {
+    display:none;
 }

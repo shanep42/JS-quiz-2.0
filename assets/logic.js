@@ -1,5 +1,6 @@
-document.getElementById('start-button').addEventListener('click', setTime);
-document.getElementById('start-button').addEventListener('click', timedQuiz);
+var startButton = document.getElementById('start-button')
+startButton.addEventListener('click', setTime);
+startButton.addEventListener('click', timedQuiz);
 var timerEl = document.getElementById('time-display');
 var displayedQuestion = document.getElementById('question-space');
 var multipleChoices = document.querySelectorAll('.choice');
@@ -25,6 +26,7 @@ var secondsLeft = 180;
 
 
 function setTime() {
+    startButton.classList.add("hidden")
     var timerInterval = setInterval(function() {
       secondsLeft--;
       timerEl.textContent = secondsLeft + " seconds remaining"
@@ -35,6 +37,7 @@ function setTime() {
       }
   
     }, 1000);
+    
   }
 
 
@@ -42,12 +45,12 @@ function timedQuiz() {
     fetchQuestion();
     function fetchQuestion() {
         currentQuestion = questions[Math.floor(Math.random() * questions.length)]
-        console.log(`currentQuestion: ${currentQuestion}`);
 
         displayedQuestion.textContent = currentQuestion.question;
 
         for (i = 0; i < currentQuestion.choices.length; i++){
             multipleChoices[i].textContent = currentQuestion.choices[i];
-        }
+            multipleChoices[i].classList.remove('hidden');
     }
+  }
 }
