@@ -3,3 +3,22 @@
     height: 300px;
     width: 600px;
 }
+
+
+.score-area {
+    position: relative;
+}
+
+#start-button {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+}
+
+#time-display {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    font-size: 30px;
+    margin: 0;
+}
