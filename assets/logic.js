@@ -2,12 +2,13 @@ document.getElementById('start-button').addEventListener('click', setTime);
 document.getElementById('start-button').addEventListener('click', timedQuiz);
 var timerEl = document.getElementById('time-display');
 var displayedQuestion = document.getElementById('question-space');
-var multipleChoices = document.getElementById('answer-space');
+var multipleChoices = document.querySelectorAll('.choice');
+var currentQuestion;
 
 // I think I will likely need to write questions stored either as or like objects, so that each is accompanied by its multiple options for choices
 var questions = [{
     question: "Inside which HTML element do we put the JavaScript?",
-    choices: ["<js>", "<script>", "<scripting>", "javascript"],
+    choices: ["<js>", "<script>", "<scripting>", "<javascript>"],
     correctAnswer: 1,
     alreadyAsked: false
 }, {
@@ -19,8 +20,8 @@ var questions = [{
 ]
 
 
-//seconds to play the game, starting low for testing purposes
-var secondsLeft = 10;
+//seconds to play the game, starting high for testing purposes
+var secondsLeft = 180;
 
 
 function setTime() {
@@ -38,15 +39,15 @@ function setTime() {
 
 
 function timedQuiz() {
-    var currentQuestion = "Placeholder";
     fetchQuestion();
     function fetchQuestion() {
-        currentQuestion = questions[Math.floor(Math.random * questions.length)]
-        console.log(currentQuestion)
-    }
-    for (i = 0; i < currentQuestion.choices.length; i++){
-        multipleChoices.createElement('li')
+        currentQuestion = questions[Math.floor(Math.random() * questions.length)]
+        console.log(`currentQuestion: ${currentQuestion}`);
+
+        displayedQuestion.textContent = currentQuestion.question;
+
+        for (i = 0; i < currentQuestion.choices.length; i++){
+            multipleChoices[i].textContent = currentQuestion.choices[i];
+        }
     }
 }
-
-console.log(questions[1].choices)
