@@ -24,22 +24,22 @@ var questions = [{
     correctAnswer: 0
 }, {
     question: 'How do you write "Hello World" in an alert box?',
-    choices: ['msg("Hello World");', 'alert("Hello World")', 'msgBox("Hello World")', 'alertBox("Hello World")'],
+    choices: ['msg("Hello World")', 'alert("Hello World")', 'msgBox("Hello World")', 'alertBox("Hello World")'],
     correctAnswer: 1
 }, {
     question: 'How do you create a function in JavaScript?',
-    options: ['function = myFunction()', 'function:myFunction()', 'function myFunction()', 'func myFunc()'],
+    choices: ['function = myFunction()', 'function:myFunction()', 'function myFunction()', 'func myFunction()'],
     correctAnswer: 2
 }, {
     question: 'How do you call a function named "My Function"?',
-    options ['call function myFunction()', 'call myFunction()', 'myFunction.call', 'myFunction()'],
+    choices: ['call function myFunction()', 'call myFunction()', 'myFunction.call', 'myFunction()'],
     correctAnswer: 3
 }
 ]
 
 
-//seconds to play the game, starting high for testing purposes
-var secondsLeft = 180;
+//seconds to play the game
+var secondsLeft = 15;
 
 // TODO: Shuffle the questions so they are in a different order when you play more than once. 
 
@@ -61,16 +61,16 @@ function setTime() {
       secondsLeft--;
       timerEl.textContent = secondsLeft + " seconds remaining"
   
-      if(secondsLeft === 0) {
+      if(secondsLeft <= 0) {
         clearInterval(timerInterval);
         //end quiz: Out of time
-        alert("Time is up")
+        timeUp();
 
       }
   
     }, 1000);
     
-  }
+}
 
 function quiz() {
   currentQuestionIndex++;
@@ -91,6 +91,22 @@ function quiz() {
     if (event.target.dataset.optionnumber == currentQuestion.correctAnswer){
       rightAnswerScore++;
       quiz();
-    } else if (event.target.)
+    //wrong answers
+    } else if (event.target.dataset.optionnumber != currentQuestion.correctAnswer && event.target.dataset.optionnumber != undefined) {
+      wrongAnswerScore++;
+      secondsLeft -= 5;
+      //event.target.setAttribute('style', 'background-color: red')
+      event.target.classList.add("hidden")
+    }
   })
+}
+
+
+function timeUp () {
+ for (let i = 0; i < multipleChoices.length; i++){
+  multipleChoices[i].classList.add("hidden");
+  displayedQuestion.textContent = `Time is up! You guessed right ${rightAnswerScore} times and wrong ${wrongAnswerScore}. Enter your initials to save your score!`;
+  var initials = prompt("Your initials");
+  var savedScore = [initials, rightAnswerScore, wrongAnswerScore, secondsLeft];
+ }
 }
