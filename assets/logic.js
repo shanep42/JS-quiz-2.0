@@ -13,13 +13,27 @@ var wrongAnswerScore = 0;
 var questions = [{
     question: "Inside which HTML element do we put the JavaScript?",
     choices: ["<js>", "<script>", "<scripting>", "<javascript>"],
-    correctAnswer: 1,
-    alreadyAsked: false
+    correctAnswer: 1
 }, {
-    question: "test question",
-    choices: ['A', 'B', 'C', 'D'],
-    correctAnswer: 2,
-    alreadyAsked: false
+    question: "Where is the correct place to insert a JavaScript?",
+    choices: ['Both the <head> section and the <body> section', 'The <head> section', 'The <body> section', 'The location does not matter'],
+    correctAnswer: 2
+}, {
+    question: "What is the correct syntax for referring to an external script called xxx.js?",
+    choices: ['<script src="xxx.js"', '<script name="xxx.js"', '<script href="xxx.js"', 'script rel="xxx.js"'],
+    correctAnswer: 0
+}, {
+    question: 'How do you write "Hello World" in an alert box?',
+    choices: ['msg("Hello World");', 'alert("Hello World")', 'msgBox("Hello World")', 'alertBox("Hello World")'],
+    correctAnswer: 1
+}, {
+    question: 'How do you create a function in JavaScript?',
+    options: ['function = myFunction()', 'function:myFunction()', 'function myFunction()', 'func myFunc()'],
+    correctAnswer: 2
+}, {
+    question: 'How do you call a function named "My Function"?',
+    options ['call function myFunction()', 'call myFunction()', 'myFunction.call', 'myFunction()'],
+    correctAnswer: 3
 }
 ]
 
@@ -77,6 +91,6 @@ function quiz() {
     if (event.target.dataset.optionnumber == currentQuestion.correctAnswer){
       rightAnswerScore++;
       quiz();
-    }
+    } else if (event.target.)
   })
 }

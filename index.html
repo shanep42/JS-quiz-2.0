@@ -9,26 +9,27 @@
 </head>
 <body>
     <h1>Coding Quiz</h1>
-        <div class="main">
-            <div class="quiz-area">
-                <div id="question-space">What kind of questions shall we put here?</div>
-                <div>
-                    <ul id="answer-space">
-                        <button class = 'choice hidden' data-optionnumber = 0></button>
-                        <button class = 'choice hidden' data-optionnumber = 1></button>
-                        <button class = 'choice hidden' data-optionnumber = 2></button>
-                        <button class = 'choice hidden' data-optionnumber = 3></button>
-                    </ul>
-                </div>
-            </div>
-            <div class="score-area">
-                <h2>High Score:</h2>
-                <p id="score-display"></p>
-                <button id="start-button">START</button>
-                <p id="time-display"></p>
+    <div class="main">
+        <div class="quiz-area">
+            <div id="question-space"></div>
+            <div>
+                <ul id="answer-space">
+                    <button class = 'choice hidden' data-optionnumber = 0></button>
+                    <button class = 'choice hidden' data-optionnumber = 1></button>
+                    <button class = 'choice hidden' data-optionnumber = 2></button>
+                    <button class = 'choice hidden' data-optionnumber = 3></button>
+                </ul>
             </div>
         </div>
+        <div class="score-area">
+            <h2>High Score:</h2>
+            <p id="score-display"></p>
+            <button id="start-button">START</button>
+            <p id="time-display"></p>
+        </div>
+    </div>
 
+    <script src="jquery-3.6.0.min.js"></script>
     <script src="assets/logic.js"></script>
 </body>
 </html>
