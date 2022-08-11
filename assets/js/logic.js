@@ -8,7 +8,6 @@ var rightAnswerScore = 0;
 var wrongAnswerScore = 0;
 var score;
 var submitButton = document.getElementById('score-submit')
-var lastScore = localStorage.getItem('savedScore')
 
 // I think I will likely need to write questions stored either as or like objects, so that each is accompanied by its multiple options for choices
 var questions = [{
@@ -40,7 +39,7 @@ var questions = [{
 
 
 //seconds to play the game
-var secondsLeft = 15;
+var secondsLeft = 60;
 
 // TODO: Shuffle the questions so they are in a different order when you play more than once. 
 
@@ -113,6 +112,14 @@ function nextQuestion (event) {
               }
           }
   })
+
+  // TODO: Above, the if statement does not (reliably) count incorrect guesses. Here's how I currently believe it SHOULD work:
+  //            - It should only listen for the click if it's on a target with a data-option value
+  //            - It should consider it a correct answer if dataset.option matches (not strictly) the value of the question's correctAnswer property
+  //            - Cases where it heard the click but option != correctAnswer should necessarily be wrong answers
+  //       It FEELS like sometimes the click is triggering two events, once for the intended option and then perhaps again for the option that instantly populates to replace it,
+  //        but I don't know where to look to catch this happening (despite much console.logging).
+  //       Also possible: Somehow buttons in the <ul> are being hidden but not gone? I don't think this is the case because the <ul> isn't full of hundreds of ghost buttons when the quiz is done.
   
 
 
@@ -131,19 +138,29 @@ function outOfQuestions() {
     scoreSubmit();
 }
 
+function displayScore(){
+    var lastScore = JSON.parse(localStorage.getItem('savedScore'))
+    if (lastScore != null){
+        document.getElementById("score-display").textContent = lastScore[0] + " got " + lastScore[1] + "! Can you do better?"
+        document.getElementById('score-area').classList.remove('hidden');   
+    }
+}
+
 function scoreSubmit(){
     for (let i = 0; i < multipleChoices.length; i++){
         multipleChoices[i].classList.add("hidden");
     }
     document.getElementById('score-area').classList.remove('hidden');
+    document.getElementById('initials-input').classList.remove('hidden')
     submitButton.addEventListener('click', function () {
-        console.log(document.getElementById('initials').value)
-        var savedScore = [document.getElementById('initials').value, score]
-        localStorage.setItem('savedScore', savedScore);
+        var savedScore = [document.getElementById('initials').value, score];
+        localStorage.setItem('savedScore', JSON.stringify(savedScore));
         document.getElementById('initials-input').classList.add('hidden')
     })
     displayScore();
 }
+
+
 
 startButton.addEventListener('click', setTime);
 startButton.addEventListener('click', nextQuestion);
