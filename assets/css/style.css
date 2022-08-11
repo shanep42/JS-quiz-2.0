@@ -1,8 +1,17 @@
-.quiz-area,.score-area {
+#quiz-area, #score-area {
     border: solid black 2px;
     height: 300px;
     width: 600px;
     position: relative;
+}
+
+#quiz-area {
+    background-color:aqua
+}
+
+#question-space {
+    background-color: white;
+    border: black 2px dotted
 }
 
 #start-button {
@@ -26,6 +35,12 @@
 
 #answer-space button {
     padding: 10px;
+}
+
+.choice {
+    margin-right: 25px;
+    margin-top: 10px;
+    width: auto;
 }
 
 .hidden {

@@ -92,7 +92,6 @@ function nextQuestion (event) {
   for (let i = 0; i < currentQuestion.choices.length; i++){
       multipleChoices[i].classList.remove('hidden');
       multipleChoices[i].textContent = currentQuestion.choices[i]
-      console.log(multipleChoices)
   }
 
   document.addEventListener('click', function(event){
@@ -107,9 +106,11 @@ function nextQuestion (event) {
               } else {
               // Wrong Answer
                   event.target.classList.add('hidden');
-                //   wrongAnswerScore++;   I have no idea why wrong answer tracking is so difficult compared to correct ones. It appears to count correct answers as also being wrong, but only SOMETIMES
+                  wrongAnswerScore++;  
+                // I have no idea why wrong answer tracking is so difficult compared to correct ones. It appears to count correct answers as also being wrong, but only SOMETIMES
                   secondsLeft -= 5;
               }
+ 
           }
   })
 
@@ -124,7 +125,10 @@ function nextQuestion (event) {
 
 
 }
-
+function startUp (){
+    setTime();
+    nextQuestion();
+}
 
 function timeUp () {
     displayedQuestion.textContent = `Time is up! You scored ${rightAnswerScore} right answers.`;
@@ -133,7 +137,7 @@ function timeUp () {
 }
 
 function outOfQuestions() {
-    displayedQuestion.textContent = `You answered every question correct, with ${secondsLeft} seconds to spare!`;
+    displayedQuestion.textContent = `You answered every question correctly, with ${secondsLeft} seconds to spare!`;
     score = `⭐${secondsLeft}`
     scoreSubmit();
 }
@@ -162,8 +166,5 @@ function scoreSubmit(){
 
 
 
-startButton.addEventListener('click', setTime);
-startButton.addEventListener('click', nextQuestion);
-
+startButton.addEventListener('click', startUp)
 displayScore();
-console.log(document.getElementById('initials').value)
