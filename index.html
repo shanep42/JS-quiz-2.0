@@ -11,21 +11,26 @@
     <h1>Coding Quiz</h1>
     <div class="main">
         <div class="quiz-area">
-            <div id="question-space"></div>
+            <div id="question-space">When you press start, you will be presented with a series of questions, and the timer will begin counting down. Guessing incorrectly will remove the wrong answer from the options, but will also decrease your remaining time!</div>
             <div>
                 <ul id="answer-space">
-                    <button class = 'choice hidden' data-optionnumber = 0></button>
-                    <button class = 'choice hidden' data-optionnumber = 1></button>
-                    <button class = 'choice hidden' data-optionnumber = 2></button>
-                    <button class = 'choice hidden' data-optionnumber = 3></button>
+                    <button class = 'choice hidden' data-option = 0></button>
+                    <button class = 'choice hidden' data-option = 1></button>
+                    <button class = 'choice hidden' data-option = 2></button>
+                    <button class = 'choice hidden' data-option = 3></button>
                 </ul>
+                <button id="start-button">START</button>
+                <p id="time-display"></p>
             </div>
         </div>
-        <div class="score-area">
-            <h2>High Score:</h2>
+        <div id="score-area" class="hidden">
+            <h2>Last Score:</h2>
             <p id="score-display"></p>
-            <button id="start-button">START</button>
-            <p id="time-display"></p>
+            <div id="initials-input">
+                <input id="initials" maxlength="3">
+                <button id="score-submit">Submit</button>
+                <p>Enter your initials to save your score!</p>
+            </div>
         </div>
     </div>
     <script src="assets/js/logic.js"></script>

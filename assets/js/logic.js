@@ -6,6 +6,9 @@ var currentQuestionIndex = -1;
 var currentQuestion;
 var rightAnswerScore = 0;
 var wrongAnswerScore = 0;
+var score;
+var submitButton = document.getElementById('score-submit')
+var lastScore = localStorage.getItem('savedScore')
 
 // I think I will likely need to write questions stored either as or like objects, so that each is accompanied by its multiple options for choices
 var questions = [{
@@ -14,7 +17,7 @@ var questions = [{
     correctAnswer: 1
 }, {
     question: "Where is the correct place to insert a JavaScript?",
-    choices: ['Both the <head> section and the <body> section', 'The <head> section', 'The <body> section', 'The location does not matter'],
+    choices: ['Both the <head> section and the <body> section', 'The <head> section', 'The <body> section',],
     correctAnswer: 2
 }, {
     question: "What is the correct syntax for referring to an external script called xxx.js?",
@@ -71,6 +74,7 @@ function setTime() {
 }
 
 function nextQuestion (event) {
+    //hide the start button the first time it's called
   if (!startButton.classList.contains('hidden')){
       startButton[0].classList.add('hidden')
   }
@@ -104,8 +108,8 @@ function nextQuestion (event) {
               } else {
               // Wrong Answer
                   event.target.classList.add('hidden');
-                  wrongAnswerScore++;
-                  secondLeft -= 5;
+                //   wrongAnswerScore++;   I have no idea why wrong answer tracking is so difficult compared to correct ones. It appears to count correct answers as also being wrong, but only SOMETIMES
+                  secondsLeft -= 5;
               }
           }
   })
@@ -116,12 +120,33 @@ function nextQuestion (event) {
 
 
 function timeUp () {
- for (let i = 0; i < multipleChoices.length; i++){
-  multipleChoices[i].classList.add("hidden");
- }
-  displayedQuestion.textContent = `Time is up! You guessed right ${rightAnswerScore} times and wrong ${wrongAnswerScore}. Enter your initials to save your score!`;
-  var savedScore = [initials, rightAnswerScore, wrongAnswerScore, secondsLeft];
- }
+    displayedQuestion.textContent = `Time is up! You scored ${rightAnswerScore} right answers.`;
+    score = rightAnswerScore;
+    scoreSubmit();
+}
+
+function outOfQuestions() {
+    displayedQuestion.textContent = `You answered every question correct, with ${secondsLeft} seconds to spare!`;
+    score = `⭐${secondsLeft}`
+    scoreSubmit();
+}
+
+function scoreSubmit(){
+    for (let i = 0; i < multipleChoices.length; i++){
+        multipleChoices[i].classList.add("hidden");
+    }
+    document.getElementById('score-area').classList.remove('hidden');
+    submitButton.addEventListener('click', function () {
+        console.log(document.getElementById('initials').value)
+        var savedScore = [document.getElementById('initials').value, score]
+        localStorage.setItem('savedScore', savedScore);
+        document.getElementById('initials-input').classList.add('hidden')
+    })
+    displayScore();
+}
 
 startButton.addEventListener('click', setTime);
 startButton.addEventListener('click', nextQuestion);
+
+displayScore();
+console.log(document.getElementById('initials').value)
