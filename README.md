@@ -1,4 +1,6 @@
-# coding-quiz
+# JavaScript Quiz (2nd Attempt)
+
+https://shanep42.github.io/coding-quiz-2.0/
 
 ## Purpose
 
