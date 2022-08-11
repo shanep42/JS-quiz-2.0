@@ -78,7 +78,7 @@ function nextQuestion (event) {
       startButton[0].classList.add('hidden')
   }
   currentQuestionIndex++;
-  var currentQuestion = questions[currentQuestionIndex];
+  currentQuestion = questions[currentQuestionIndex];
   for (let i = 0; i < multipleChoices.length; i++){
       multipleChoices[i].classList.add('hidden')
       multipleChoices[i].classList.remove('correct')
@@ -93,35 +93,6 @@ function nextQuestion (event) {
       multipleChoices[i].classList.remove('hidden');
       multipleChoices[i].textContent = currentQuestion.choices[i]
   }
-
-  document.addEventListener('click', function(event){
-      if (event.target.dataset.option == 0
-          || event.target.dataset.option == 1
-          || event.target.dataset.option == 2
-          || event.target.dataset.option == 3){
-              // Correct Answer
-              if (event.target.dataset.option == currentQuestion.correctAnswer) {
-                  rightAnswerScore++;
-                  nextQuestion();
-              } else {
-              // Wrong Answer
-                  event.target.classList.add('hidden');
-                  wrongAnswerScore++;  
-                // I have no idea why wrong answer tracking is so difficult compared to correct ones. It appears to count correct answers as also being wrong, but only SOMETIMES
-                  secondsLeft -= 5;
-              }
- 
-          }
-  })
-
-  // TODO: Above, the if statement does not (reliably) count incorrect guesses. Here's how I currently believe it SHOULD work:
-  //            - It should only listen for the click if it's on a target with a data-option value
-  //            - It should consider it a correct answer if dataset.option matches (not strictly) the value of the question's correctAnswer property
-  //            - Cases where it heard the click but option != correctAnswer should necessarily be wrong answers
-  //       It FEELS like sometimes the click is triggering two events, once for the intended option and then perhaps again for the option that instantly populates to replace it,
-  //        but I don't know where to look to catch this happening (despite much console.logging).
-  //       Also possible: Somehow buttons in the <ul> are being hidden but not gone? I don't think this is the case because the <ul> isn't full of hundreds of ghost buttons when the quiz is done.
-  
 
 
 }
@@ -164,7 +135,25 @@ function scoreSubmit(){
     displayScore();
 }
 
+document.addEventListener('click', function(event){
+    if (event.target.dataset.option == 0
+        || event.target.dataset.option == 1
+        || event.target.dataset.option == 2
+        || event.target.dataset.option == 3){
+            // Correct Answer
+            if (event.target.dataset.option == currentQuestion.correctAnswer) {
+                rightAnswerScore++;
+                nextQuestion();
+            } else {
+            // Wrong Answer
+                event.target.classList.add('hidden');
+                wrongAnswerScore++;  
+              // I have no idea why wrong answer tracking is so difficult compared to correct ones. SOMETIMES BUT NOT ALWAYS, correct clicks ALSO count as wrong clicks
+                secondsLeft -= 5;
+            }
 
+        }
+})
 
 startButton.addEventListener('click', startUp)
 displayScore();

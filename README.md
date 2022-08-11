@@ -16,9 +16,9 @@ I was in the process of learning new and better ways to do everything involved i
 
 I had to resist the urge to scrap everything and start over several times as I learned how poorly I'd arranged things earlier, and not always successfully. If I'd allowed myself more time, I'd have liked to at least clean things up and be a little more uniform in my naming conventions and use of variables.
 
-Also, there is a persistant error that causes clicks to count more than once for purpose of eventListener events in some but not all circumstances. I wasted a lot of time trying to make other things functional in the way that I wanted to be, but ultimately did not leave myself enough time for debugging this one critical issue.
+Styling is barebones to say the least (and extremely ugly and utilitarian to say a bit more), but I was not going to prioritize that while I was not yet fully functional to my satisfaction.
 
-Similarly, styling is barebones to say the least (and extremely ugly and utilitarian to say a bit more), but I was not going to prioritize that while I was not yet (to my mind) fully functional.
+I don't imagine my current quiz has much "replay value", but if I were upgrading everything I'd also shuffle arrays around so that questions and answer options weren't always in the same order.
 
 ![screenshot](./assets/images/screenshot.png)
 
