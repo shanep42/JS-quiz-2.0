@@ -1,6 +1,4 @@
 var startButton = document.getElementById('start-button')
-startButton.addEventListener('click', setTime);
-startButton.addEventListener('click', quiz);
 var timerEl = document.getElementById('time-display');
 var displayedQuestion = document.getElementById('question-space');
 var multipleChoices = document.querySelectorAll('.choice');
@@ -72,41 +70,58 @@ function setTime() {
     
 }
 
-function quiz() {
+function nextQuestion (event) {
+  if (!startButton.classList.contains('hidden')){
+      startButton[0].classList.add('hidden')
+  }
   currentQuestionIndex++;
-  if (currentQuestionIndex > questions.length){
-    //end quiz: Out of questions
-    return;
+  var currentQuestion = questions[currentQuestionIndex];
+  for (let i = 0; i < multipleChoices.length; i++){
+      multipleChoices[i].classList.add('hidden')
+      multipleChoices[i].classList.remove('correct')
+  }
+  if (currentQuestionIndex >= questions.length){
+      outOfQuestions ();
+      return;
   }
 
-  currentQuestion = questions[currentQuestionIndex];
   displayedQuestion.textContent = currentQuestion.question;
   for (let i = 0; i < currentQuestion.choices.length; i++){
-    multipleChoices[i].textContent = currentQuestion.choices[i];
-    multipleChoices[i].classList.remove('hidden');
+      multipleChoices[i].classList.remove('hidden');
+      multipleChoices[i].textContent = currentQuestion.choices[i]
+      console.log(multipleChoices)
   }
 
   document.addEventListener('click', function(event){
-    //right answers
-    if (event.target.dataset.optionnumber == currentQuestion.correctAnswer){
-      rightAnswerScore++;
-      quiz();
-    //wrong answers
-    } else if (event.target.dataset.optionnumber != currentQuestion.correctAnswer && event.target.dataset.optionnumber != undefined) {
-      wrongAnswerScore++;
-      secondsLeft -= 5;
-      //event.target.setAttribute('style', 'background-color: red')
-      event.target.classList.add("hidden")
-    }
+      if (event.target.dataset.option == 0
+          || event.target.dataset.option == 1
+          || event.target.dataset.option == 2
+          || event.target.dataset.option == 3){
+              // Correct Answer
+              if (event.target.dataset.option == currentQuestion.correctAnswer) {
+                  rightAnswerScore++;
+                  nextQuestion();
+              } else {
+              // Wrong Answer
+                  event.target.classList.add('hidden');
+                  wrongAnswerScore++;
+                  secondLeft -= 5;
+              }
+          }
   })
+  
+
+
 }
 
 
 function timeUp () {
  for (let i = 0; i < multipleChoices.length; i++){
   multipleChoices[i].classList.add("hidden");
+ }
   displayedQuestion.textContent = `Time is up! You guessed right ${rightAnswerScore} times and wrong ${wrongAnswerScore}. Enter your initials to save your score!`;
-  var initials = prompt("Your initials");
   var savedScore = [initials, rightAnswerScore, wrongAnswerScore, secondsLeft];
  }
-}
+
+startButton.addEventListener('click', setTime);
+startButton.addEventListener('click', nextQuestion);
